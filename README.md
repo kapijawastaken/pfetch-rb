@@ -1,2 +1,2 @@
-# pfetch-rb
-A pfetch-inspired sysfetch written in Ruby!
+# rubyfetch
+A sysfetch written in Ruby!
