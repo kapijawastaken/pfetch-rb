@@ -1,0 +1,2 @@
+# This is the default rubyfetch config file. Here, you can set the directory that contains the ASCII art logos. It's important to include the last /.
+dir ./logos/
