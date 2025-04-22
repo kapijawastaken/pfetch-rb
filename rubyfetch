@@ -6,8 +6,7 @@ user = `whoami`.strip+"@"+`hostname`+"--------------------"
 kernel = `uname -r`
 shell = `echo $SHELL`.gsub("/usr", "").gsub("/bin/", "")
 os = File.read("/etc/os-release")
-distro = "Fedora"
-#distro = os.lines.select { |line| line.start_with?("PRETTY_NAME=") }.join.gsub("PRETTY_NAME=", "").gsub("\"", "")
+distro = os.lines.select { |line| line.start_with?("PRETTY_NAME=") }.join.gsub("PRETTY_NAME=", "").gsub("\"", "")
 uptime = `uptime -p`.gsub("up ", "")
 
 # the big if statement
