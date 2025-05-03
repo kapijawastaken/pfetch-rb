@@ -4,7 +4,7 @@ user = `whoami`.strip+"@"+`hostname`+"--------------------"
 kernel = `uname -r`
 shell = `echo $SHELL`.gsub(/^.+\//, "")
 distro = File.read("/etc/os-release").gsub(/^(?!.*PRETTY_NAME=).*/, "").strip.gsub("PRETTY_NAME=", "").gsub("\"", "")
-uptime = `uptime`.gsub(/^.*up\s+/, "").gsub(/,.*/, "").gsub(":", " hours, ").gsub(/\b0/, "").strip+" mins"
+uptime = `uptime`.gsub(/^.*up\s+/, "").gsub(/,.*/, "").gsub(":", " hours, ").gsub(/\b0/, "").strip.gsub(/^hours,/, "").strip+" mins"
 # memory (god forgive me)
 mem = `free`.gsub(/^(Swap:).+/, "").gsub(/^\s.+/, "").strip.gsub("Mem:", "").strip.gsub(/^(\s*\d+\s+\d+).*/, '\1')                                          
 total = mem.gsub(/(?<=\s)\d+/, "").strip.to_f / (1024**2)                
