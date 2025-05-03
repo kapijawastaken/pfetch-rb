@@ -6,4 +6,4 @@ A blazing fast sysfetch written in Ruby!
 cd rubyfetch
 cp -r ./.config/ ~/
 sudo cp ./rubyfetch /usr/local/bin/
-rubyfetch```
+rubyfetch
