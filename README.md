@@ -1,4 +1,9 @@
 # rubyfetch
-A sysfetch written in Ruby!
+A blazing fast sysfetch written in Ruby!
 
-Make sure to copy the .config dir to your $HOME!
+# Instructions
+```git clone https://github.com/kapijawastaken/rubyfetch
+cd rubyfetch
+cp -r ./.config/ ~/
+sudo cp ./rubyfetch /usr/local/bin/
+rubyfetch```
