@@ -1,14 +1,21 @@
 # vars
 logos = File.expand_path(File.read(File.expand_path("~/.config/rubyfetch/config")).gsub(/^#.+/, "").gsub("dir ", "").strip)+"/"
-user = `whoami`.strip+"@"+`hostname`+"--------------------"
+user = ENV["USER"]+"@"+ENV["HOSTNAME"]+"\n--------------------"
 kernel = `uname -r`
-shell = `echo $SHELL`.gsub(/^.+\//, "")
-distro = File.read("/etc/os-release").gsub(/^(?!.*PRETTY_NAME=).*/, "").strip.gsub("PRETTY_NAME=", "").gsub("\"", "")
+shell = ENV["SHELL"].gsub(/^.+\//, "")
 uptime = `uptime`.gsub(/^.*up\s+/, "").gsub(/,.*/, "").gsub(":", " hours, ").gsub(/\b0/, "").strip.gsub(/^hours,/, "").strip+" mins"
-# memory (god forgive me)
-mem = `free`.gsub(/^(Swap:).+/, "").gsub(/^\s.+/, "").strip.gsub("Mem:", "").strip.gsub(/^(\s*\d+\s+\d+).*/, '\1')                                          
-total = mem.gsub(/(?<=\s)\d+/, "").strip.to_f / (1024**2)                
-used = mem.gsub(/^\d+/, "").strip.to_f / (1024**2)                       
+# distro
+if `uname -a`.strip.include?("Android")
+  distro = "Android"
+elsif `uname`.strip == "Haiku"
+  distro = "Haiku"
+else
+  distro = File.read("/etc/os-release").gsub(/^(?!.*PRETTY_NAME=).*/, "").strip.gsub("PRETTY_NAME=", "").gsub("\"", "")
+end
+# memory (it works so dont complain)
+mem = `free`.gsub(/^(Swap:).+/, "").gsub(/^\s.+/, "").strip.gsub("Mem:", "").strip.gsub(/^(\s*\d+\s+\d+).*/, '\1')
+total = mem.gsub(/(?<=\s)\d+/, "").strip.to_f / (1024**2)
+used = mem.gsub(/^\d+/, "").strip.to_f / (1024**2)
 total2 = total.to_s.strip.gsub(/(?<=^\d\.\d{2}).*/, "").to_f.round(1).to_s
 used2 = used.to_s.strip.gsub(/(?<=^\d\.\d{2}).*/, "").to_f.round(1).to_s
 memory = used2+" GB / "+total2+" GB"
@@ -136,5 +143,45 @@ elsif distro.include?("Fedora")
   puts "\e[1m\e[34muptime\e[0m "+uptime
   puts "\e[1m\e[34mmemory\e[0m "+memory
   ascii = File.read("#{logos}fedora")
+  puts ascii
+
+elsif distro.include?("FreeBSD")
+  puts "\e[1m\e[31m"+user
+  puts "\e[1m\e[31mdistro\e[0m "+distro
+  puts "\e[1m\e[31mkernel\e[0m "+kernel
+  puts "\e[1m\e[31mshell\e[0m "+shell
+  puts "\e[1m\e[31muptime\e[0m "+uptime
+  puts "\e[1m\e[31mmemory\e[0m "+memory
+  ascii = File.read("#{logos}freebsd")
+  puts ascii
+
+elsif distro.include?("Android")
+  puts "\e[1m\e[32m"+user
+  puts "\e[1m\e[32mdistro\e[0m "+distro
+  puts "\e[1m\e[32mkernel\e[0m "+kernel
+  puts "\e[1m\e[32mshell\e[0m "+shell
+  puts "\e[1m\e[32muptime\e[0m "+uptime
+  puts "\e[1m\e[32mmemory\e[0m "+memory 
+  ascii = File.read("#{logos}android")
+  puts ascii
+
+elsif distro.include?("Haiku")
+  puts "\e[1m\e[33m"+user
+  puts "\e[1m\e[33mdistro\e[0m "+distro
+  puts "\e[1m\e[33mkernel\e[0m "+kernel
+  puts "\e[1m\e[31mshell\e[0m "+shell
+  puts "\e[1m\e[31muptime\e[0m "+uptime
+  puts "\e[1m\e[31mmemory\e[0m "+memory
+  ascii = File.read("#{logos}haiku")
+  puts ascii
+
+elsif distro.include?("NetBSD")
+  puts "\e[1m\e[31m"+user
+  puts "\e[1m\e[31mdistro\e[0m "+distro
+  puts "\e[1m\e[31mkernel\e[0m "+kernel
+  puts "\e[1m\e[31mshell\e[0m "+shell
+  puts "\e[1m\e[31muptime\e[0m "+uptime
+  puts "\e[1m\e[31mmemory\e[0m "+memory
+  ascii = File.read("#{logos}netbsd")
   puts ascii
 end
