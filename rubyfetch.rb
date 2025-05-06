@@ -1,9 +1,9 @@
 # vars
 logos = File.expand_path(File.read(File.expand_path("~/.config/rubyfetch/config")).gsub(/^#.+/, "").gsub("dir ", "").strip)+"/"
-user = ENV["USER"]+"@"+ENV["HOSTNAME"]+"\n--------------------"
+user = `whoami`.strip+"@"+`hostname`.strip+"\n--------------------"
 kernel = `uname -r`
 shell = ENV["SHELL"].gsub(/^.+\//, "")
-uptime = `uptime`.gsub(/^.*up\s+/, "").gsub(/,.*/, "").gsub(":", " hours, ").gsub(/\b0/, "").strip.gsub(/^hours,/, "").strip+" mins"
+uptime = `uptime`.gsub(/^.*up\s+/, "").gsub(/,.*/, "").gsub(":", " hours, ").gsub(/\b0/, "").strip.gsub(/^hours,/, "").strip.gsub("min", "").gsub(" h", "").strip+" mins"
 # distro
 if `uname -a`.strip.include?("Android")
   distro = "Android"
