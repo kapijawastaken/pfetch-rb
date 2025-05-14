@@ -4,7 +4,7 @@ user = `whoami`.strip+"@"+`hostname`.strip+"\n--------------------"
 kernel = `uname -r`
 shell = ENV["SHELL"].gsub(/^.+\//, "")
 # uptime
-uptime = `uptime`.strip.gsub(/^.*up\s+/, "").gsub(/.(?!.*,).*/, "").gsub(/\d.users.*/, "").gsub(/load average.*/, "").gsub("min,", "min").gsub(":", " hours ").gsub("days, ", "days,")
+uptime = `uptime`.strip.gsub(/^.*up\s+/, "").gsub(/.(?!.*,).*/, "").gsub(/\d.users.*/, "").gsub(/load average.*/, "").gsub("min,", "min").gsub(":", " hours ").gsub("days, ", "days").gsub(/\d,/, "")
 # distro
 if `uname -a`.include?("Android")
   distro = "Android"
