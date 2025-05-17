@@ -9,7 +9,7 @@ shell = ENV["SHELL"].gsub(/^.+\//, "")
 # distro
 if `uname -a`.include?("Android")
   distro = "Android"
-  uptime = `uptime`.strip.gsub(/^.*up/, "").strip.gsub(/\s\s.*/, "").gsub(/,/, "").gsub(":", " hours ").gsub(/,/, " mins")
+  uptime = `uptime`.strip.gsub(/^.*up/, "").strip.gsub(/\s\s.*/, "").gsub(/,/, "").gsub(":", " hours ").gsub(/^0\shours/, "")+" mins"
 elsif `uname`.strip == "Haiku"
   distro = "Haiku"
 elsif `uname`.strip == "Darwin"
