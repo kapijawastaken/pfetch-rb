@@ -5,10 +5,11 @@ user = `whoami`.strip+"@"+`hostname`.strip+"\n--------------------"
 kernel = `uname -r`
 shell = ENV["SHELL"].gsub(/^.+\//, "")
 # uptime
-uptime = `uptime`.strip.gsub(/.*up/, "").strip.gsub(":", " hours ").gsub(/\d\suser.*/, "").gsub(/,(?!.*,)/, " mins").gsub(/^0\shours/, "").strip
+#uptime = `uptime`.strip.gsub(/.*up/, "").strip.gsub(":", " hours ").gsub(/\d\suser.*/, "").gsub(/,(?!.*,)/, " mins").gsub(/^0\shours/, "")
 # distro
 if `uname -a`.include?("Android")
   distro = "Android"
+  uptime = `uptime`.strip.gsub(/.*up/, "").strip.gsub(/\s\s.*/, "").gsub(/,/, " hours ").gsub(",", " mins")
 elsif `uname`.strip == "Haiku"
   distro = "Haiku"
 elsif `uname`.strip == "Darwin"
@@ -17,6 +18,8 @@ elsif `uname`.strip == "Darwin"
   distro = "sw_vers -productName".strip+" "+"sw_vers -productVersion".strip
 else
   distro = File.read("/etc/os-release").gsub(/^(?!.*PRETTY_NAME=).*/, "").strip.gsub("PRETTY_NAME=", "").gsub("\"", "")
+  uptime = `uptime`.strip.gsub(/.*up/, "").strip.gsub(":", " hours ").gsub(/\d\suser.*/, "").gsub(/,(?!.*,)/, " mins").gsub(/^0\shours/, "").strip
+
 end
 # memory (it works so dont complain)
 mem = `free`.gsub(/^(Swap:).+/, "").gsub(/^\s.+/, "").strip.gsub("Mem:", "").strip.gsub(/^(\s*\d+\s+\d+).*/, '\1')
