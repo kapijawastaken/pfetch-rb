@@ -1,4 +1,5 @@
 # vars
+this = "./rubyfetch.rb"
 logos = File.expand_path(File.read(File.expand_path("~/.config/rubyfetch/config")).gsub(/^#.+/, "").gsub("dir ", "").strip)+"/"
 user = ENV["USER"]+"@"+ENV["HOSTNAME"]+"\n--------------------"
 kernel = `uname -r`
@@ -9,6 +10,10 @@ if `uname -a`.strip.include?("Android")
   distro = "Android"
 elsif `uname`.strip == "Haiku"
   distro = "Haiku"
+elsif `uname`.strip == "Darwin"
+  this.gsub("\"sw_vers -productName\"", "`sw_vers -productName`")
+  this.gsub("\"sw_vers -productVersion\"", "`sw_vers -productVersion`")
+  distro = "sw_vers -productName".strip+" "+"sw_vers -productVersion".strip
 else
   distro = File.read("/etc/os-release").gsub(/^(?!.*PRETTY_NAME=).*/, "").strip.gsub("PRETTY_NAME=", "").gsub("\"", "")
 end
@@ -184,4 +189,24 @@ elsif distro.include?("NetBSD")
   puts "\e[1m\e[31mmemory\e[0m "+memory
   ascii = File.read("#{logos}netbsd")
   puts ascii
+
+elsif distro.include?("ac OS")
+  puts "\e[1m"+user
+  puts "\e[1mdistro\e[0m "+distro
+  puts "\e[1mkernel\e[0m "+kernel
+  puts "\e[1mshell\e[0m "+shell
+  puts "\e[1muptime\e[0m "+uptime
+  puts "\e[1mmemory\e[0m "+memory
+  ascii = File.read("#{logos}macos")
+  puts ascii
+
+
+
+
+
+
+
+
+
+
 end
