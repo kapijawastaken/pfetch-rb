@@ -5,10 +5,13 @@ user = `whoami`.strip+"@"+`hostname`.strip+"\n--------------------"
 kernel = `uname -r`
 shell = ENV["SHELL"].gsub(/^.+\//, "")
 # distro
+#=begin
 if `uname -a`.include?("Android")
   distro = "Android"
 elsif `uname`.strip == "Haiku"
   distro = "Haiku"
+elsif `uname -a`.include?("openindiana")
+  distro = openindiana
 elsif `uname`.strip == "Darwin"
   this.gsub("\"sw_vers -productName\"", "`sw_vers -productName`")
   this.gsub("\"sw_vers -productVersion\"", "`sw_vers -productVersion`")
@@ -16,8 +19,10 @@ elsif `uname`.strip == "Darwin"
 else
   distro = File.read("/etc/os-release").gsub(/^(?!.*PRETTY_NAME=).*/, "").strip.gsub("PRETTY_NAME=", "").gsub("\"", "")
 end
+#=end
 # uptime
-uptime = `uptime`.strip.gsub(/^.*up/, "").strip.gsub(/\s\s.*/, "").gsub(/,/, "").gsub(":", " hours ").gsub(/^0\shours/, "").gsub("1 hours", "1 hour").gsub(" 0", "")+" mins"
+up = `uptime`.strip.gsub(/^.*up/, "").strip.gsub(/\s\s.*/, "").gsub(/,/, "").gsub(":", " hours ").gsub(/^0\shours/, "").gsub("1 hours", "1 hour").gsub(" 0", " ")+" mins"
+uptime = up.gsub("1 mins", "1 min").gsub("1 days", "1 day")
 # memory (it works so dont complain)
 mem = `free`.gsub(/^(Swap:).+/, "").gsub(/^\s.+/, "").strip.gsub("Mem:", "").strip.gsub(/^(\s*\d+\s+\d+).*/, '\1')
 total = mem.gsub(/(?<=\s)\d+/, "").strip.to_f / (1024**2)
@@ -201,13 +206,83 @@ elsif distro.include?("ac OS")
   ascii = File.read("#{logos}macos")
   puts ascii
 
+elsif distro.include?("Solus")
+  puts "\e[1m\e[34m"+user
+  puts "\e[1m\e[34mdistro\e[0m "+distro
+  puts "\e[1m\e[34mkernel\e[0m "+kernel
+  puts "\e[1m\e[34mshell\e[0m "+shell
+  puts "\e[1m\e[34muptime\e[0m "+uptime
+  puts "\e[1m\e[34mmemory\e[0m "+memory
+  ascii = File.read("#{logos}solus")
+  puts ascii
 
+elsif distro.include?("Kubuntu")
+  puts "\e[1m\e[34m"+user
+  puts "\e[1m\e[34mdistro\e[0m "+distro
+  puts "\e[1m\e[34mkernel\e[0m "+kernel
+  puts "\e[1m\e[34mshell\e[0m "+shell
+  puts "\e[1m\e[34muptime\e[0m "+uptime
+  puts "\e[1m\e[34mmemory\e[0m "+memory
+  ascii = File.read("#{logos}kubuntu")
+  puts ascii
 
+elsif distro.include?("Lubuntu")
+  puts "\e[1m\e[34m"+user
+  puts "\e[1m\e[34mdistro\e[0m "+distro
+  puts "\e[1m\e[34mkernel\e[0m "+kernel
+  puts "\e[1m\e[34mshell\e[0m "+shell
+  puts "\e[1m\e[34muptime\e[0m "+uptime
+  puts "\e[1m\e[34mmemory\e[0m "+memory
+  ascii = File.read("#{logos}lubuntu")
+  puts ascii
 
+elsif distro.include?("Void")
+  puts "\e[1m\e[32m"+user
+  puts "\e[1m\e[32mdistro\e[0m "+distro
+  puts "\e[1m\e[32mkernel\e[0m "+kernel
+  puts "\e[1m\e[32mshell\e[0m "+shell
+  puts "\e[1m\e[32muptime\e[0m "+uptime
+  puts "\e[1m\e[32mmemory\e[0m "+memory 
+  ascii = File.read("#{logos}void")
+  puts ascii
 
+elsif distro.include?("Mageia")
+  puts "\e[1m\e[36m"+user
+  puts "\e[1m\e[36mdistro\e[0m "+distro
+  puts "\e[1m\e[36mkernel\e[0m "+kernel
+  puts "\e[1m\e[36mshell\e[0m "+shell
+  puts "\e[1m\e[36muptime\e[0m "+uptime
+  puts "\e[1m\e[36mmemory\e[0m "+memory
+  ascii = File.read("#{logos}mageia")
+  puts ascii
 
+elsif distro.include?("openindiana")
+  puts "\e[1m\e[34m"+user
+  puts "\e[1m\e[34mdistro\e[0m "+distro
+  puts "\e[1m\e[34mkernel\e[0m "+kernel
+  puts "\e[1m\e[34mshell\e[0m "+shell
+  puts "\e[1m\e[34muptime\e[0m "+uptime
+  puts "\e[1m\e[34mmemory\e[0m "+memory
+  ascii = File.read("#{logos}openindiana")
+  puts ascii
 
+elsif distro.include?("Artix")
+  puts "\e[1m\e[36m"+user
+  puts "\e[1m\e[36mdistro\e[0m "+distro
+  puts "\e[1m\e[36mkernel\e[0m "+kernel
+  puts "\e[1m\e[36mshell\e[0m "+shell
+  puts "\e[1m\e[36muptime\e[0m "+uptime
+  puts "\e[1m\e[36mmemory\e[0m "+memory
+  ascii = File.read("#{logos}artix")
+  puts ascii
 
-
-
+else
+  puts "\e[1m"+user
+  puts "\e[1mdistro\e[0m "+distro
+  puts "\e[1mkernel\e[0m "+kernel
+  puts "\e[1mshell\e[0m "+shell
+  puts "\e[1muptime\e[0m "+uptime
+  puts "\e[1mmemory\e[0m "+memory
+  ascii = File.read("#{logos}linux")
+  puts ascii
 end
