@@ -1,5 +1,4 @@
 # vars
-this = "./rubyfetch.rb"
 logos = File.expand_path(File.read(File.expand_path("~/.config/rubyfetch/config")).gsub(/^#.+/, "").gsub("dir ", "").strip)+"/"
 user = `whoami`.strip+"@"+`hostname`.strip+"\n--------------------"
 kernel = `uname -r`
@@ -11,11 +10,9 @@ if `uname -a`.include?("Android")
 elsif `uname`.strip == "Haiku"
   distro = "Haiku"
 elsif `uname -a`.include?("openindiana")
-  distro = openindiana
+  distro = "openindiana"
 elsif `uname`.strip == "Darwin"
-  this.gsub("\"sw_vers -productName\"", "`sw_vers -productName`")
-  this.gsub("\"sw_vers -productVersion\"", "`sw_vers -productVersion`")
-  distro = "sw_vers -productName".strip+" "+"sw_vers -productVersion".strip
+  distro = "macOS"
 else
   distro = File.read("/etc/os-release").gsub(/^(?!.*PRETTY_NAME=).*/, "").strip.gsub("PRETTY_NAME=", "").gsub("\"", "")
 end
@@ -196,7 +193,7 @@ elsif distro.include?("NetBSD")
   ascii = File.read("#{logos}netbsd")
   puts ascii
 
-elsif distro.include?("ac OS")
+elsif distro.include?("macOS")
   puts "\e[1m"+user
   puts "\e[1mdistro\e[0m "+distro
   puts "\e[1mkernel\e[0m "+kernel
