@@ -19,7 +19,7 @@ end
 #=end
 # uptime
 up = `uptime`.strip.gsub(/^.*up/, "").strip.gsub(/\s\s.*/, "").gsub(/,/, "").gsub(":", " hours ").gsub(/^0\shours/, "").gsub(" 1 hours", " 1 hour").gsub("min", "").strip.gsub(" 0", " ")+" mins"
-uptime = up.gsub(" 1 mins", " 1 min").gsub("1 days", "1 day").gsub("00 mins", "0 mins")
+uptime = up.gsub(" 1 mins", " 1 min").gsub(" 1 days", "1 day").gsub("00 mins", "0 mins")
 # memory (it works so dont complain)
 mem = `free`.gsub(/^(Swap:).+/, "").gsub(/^\s.+/, "").strip.gsub("Mem:", "").strip.gsub(/^(\s*\d+\s+\d+).*/, '\1')
 total = mem.gsub(/(?<=\s)\d+/, "").strip.to_f / (1024**2)
